@@ -211,23 +211,19 @@ body.scrolled .navbar {
   height: 360px;
 }
 
-/* SLASH DIVIDER — ANIMATED */
+/* === SLASH DIVIDER — FIXED TO MATCH REFERENCE === */
 .divider-slash {
   position: absolute;
   top: 0;
   left: 50%;
-  transform: translateX(-50%) rotate(8deg); /* tilt */
-  height: 0;
+  transform: translateX(-50%) rotate(12deg); /* ← sharper diagonal */
   width: 2px;
+  height: 100%;
   background: var(--accent);
   opacity: 0.8;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 0;
-  overflow: hidden;
   z-index: 3;
   box-shadow: 0 0 12px var(--accent-glow);
+  pointer-events: none;
 }
 
 .divider-slash.animate {
