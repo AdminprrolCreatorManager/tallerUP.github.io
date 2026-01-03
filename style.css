@@ -336,13 +336,13 @@ body.scrolled .navbar {
 
 /* === WHY US === */
 .why-us {
-  padding: 70px 40px; /* Reduced from 100px */
+  padding: 70px 40px;
   text-align: center;
 }
 
 .why-us-content {
   display: flex;
-  gap: 50px; /* Reduced from 60px */
+  gap: 50px;
   max-width: 1200px;
   margin: 0 auto;
   align-items: center;
@@ -361,7 +361,6 @@ body.scrolled .navbar {
 }
 
 /* === TESTIMONIALS CAROUSEL === */
-/* FIXED: Stable 3-item carousel */
 .testimonials-container {
   max-width: 800px;
   margin: 40px auto 0;
@@ -371,18 +370,19 @@ body.scrolled .navbar {
 
 .testimonials-carousel {
   display: flex;
-  width: 300%; /* 3 items */
+  width: 400%; /* 4 items for seamless loop */
   transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .testimonial-item {
-  flex: 0 0 33.333%;
+  flex: 0 0 25%; /* 1/4 width for 4 items */
   padding: 24px;
   background: rgba(15, 15, 20, 0.7);
   backdrop-filter: blur(6px);
   border: 1px solid rgba(204, 0, 51, 0.2);
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
   text-align: center;
+  min-width: 200px; /* Ensure minimum size */
 }
 
 .stars {
@@ -400,63 +400,6 @@ body.scrolled .navbar {
 .author {
   font-style: italic;
   opacity: 0.8;
-}
-
-/* === ABOUT === */
-.about {
-  padding: 70px 40px; /* Reduced from 100px */
-  text-align: center;
-}
-
-.about-text {
-  max-width: 700px;
-  margin: 0 auto 30px; /* Reduced from 40px */
-  font-size: 1.15rem;
-  line-height: 1.7;
-  opacity: 0.9;
-}
-
-.contact-info p {
-  margin: 8px 0;
-  font-size: 1.1rem;
-}
-
-/* === FOOTER === */
-.footer {
-  padding: 30px 20px; /* Reduced from 40px */
-  text-align: center;
-  border-top: 1px solid rgba(204, 0, 51, 0.15);
-}
-
-.social-icons {
-  display: flex;
-  justify-content: center;
-  gap: 24px;
-  margin-bottom: 15px; /* Reduced from 20px */
-}
-
-.social-icons a {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 44px;
-  height: 44px;
-  border: 1px solid var(--text);
-  color: var(--text);
-  text-decoration: none;
-  font-weight: 600;
-  transition: all 0.3s ease;
-}
-
-.social-icons a:hover {
-  color: var(--accent);
-  border-color: var(--accent);
-  box-shadow: 0 0 12px var(--accent-glow);
-}
-
-.copyright {
-  font-size: 0.95rem;
-  opacity: 0.7;
 }
 
 /* === MOBILE === */
