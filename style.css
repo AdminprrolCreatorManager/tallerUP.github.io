@@ -20,32 +20,15 @@ body {
   font-family: 'Rajdhani', sans-serif;
   overflow-x: hidden;
   line-height: 1.4;
+  scroll-behavior: smooth;
 }
 
-/* === NAVBAR — WIDER + ROUNDED === */
-.navbar {
+/* === FIXED LOGO (TOP-LEFT) === */
+.logo-fixed {
   position: fixed;
   top: 24px;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 1000;
-}
-
-.nav-content {
-  display: flex;
-  align-items: center;
-  gap: 40px; /* more space */
-  background: var(--surface);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  border-radius: 28px; /* slightly more rounded */
-  padding: 14px 40px; /* wider padding → wider bar */
-  border: 1px solid rgba(204, 0, 51, 0.25);
-  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.5);
-  min-width: 520px; /* ensures minimum width on desktop */
-}
-
-.logo {
+  left: 24px;
+  z-index: 1100;
   font-weight: 700;
   font-size: 1.4rem;
   background: var(--metal);
@@ -54,6 +37,104 @@ body {
   color: transparent;
 }
 
+/* === NAVBAR — 75% WIDTH, SHRINK ON SCROLL === */
+.navbar {
+  position: fixed;
+  top: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1000;
+  width: 75%;
+  max-width: 1200px;
+  transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* Shrink on scroll */
+body.scrolled .navbar {
+  top: 12px;
+  transform: translateX(-50%) scale(0.96);
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.6);
+}
+
+.nav-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--surface);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-radius: 28px;
+  padding: 14px 40px;
+  border: 1px solid rgba(204, 0, 51, 0.25);
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.5);
+}
+
+/* === DROPDOWN (SHARP, NO ROUNDED) === */
+.nav-dropdown {
+  position: relative;
+}
+
+.dropdown-toggle {
+  background: none;
+  border: none;
+  color: var(--accent);
+  font-size: 1.3rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+/* Rotate arrow on open */
+.nav-dropdown:hover .dropdown-toggle,
+.nav-dropdown.active .dropdown-toggle {
+  transform: rotate(180deg);
+}
+
+.dropdown-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 180px;
+  background: rgba(15, 15, 20, 0.85);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  border: 1px solid rgba(204, 0, 51, 0.25);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.5);
+  list-style: none;
+  padding: 12px 0;
+  margin-top: 8px;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-10px);
+  transition: all 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+  border-radius: 0; /* SHARP EDGES */
+}
+
+.nav-dropdown:hover .dropdown-menu,
+.nav-dropdown.active .dropdown-menu {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.dropdown-menu li {
+  padding: 0;
+}
+
+.dropdown-menu a {
+  display: block;
+  color: var(--text);
+  text-decoration: none;
+  padding: 10px 20px;
+  transition: all 0.2s;
+}
+
+.dropdown-menu a:hover {
+  background: rgba(204, 0, 51, 0.15);
+  color: var(--accent);
+}
+
+/* === NAV LINKS (RIGHT) === */
 .nav-links {
   display: flex;
   gap: 28px;
@@ -74,7 +155,8 @@ body {
 
 /* === HERO === */
 .hero {
-  height: 100vh;
+  height: 45vh;
+  min-height: 320px;
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -82,21 +164,23 @@ body {
   align-items: center;
   text-align: center;
   background: 
-    linear-gradient(rgba(12, 12, 15, 0.85), rgba(12, 12, 15, 0.92)),
-    url('https://placehold.co/1920x1080/0a0a0d/222228?text=CAR+GARAGE') center/cover no-repeat;
+    linear-gradient(rgba(12, 12, 15, 0.8), rgba(12, 12, 15, 0.9)),
+    url('images/background hero.png') center/cover no-repeat;
   padding: 0 20px;
   position: relative;
+  margin-top: 80px; /* avoid navbar overlap */
 }
 
 .hero h1 {
-  font-size: clamp(2.5rem, 8vw, 6rem);
+  font-size: clamp(2.2rem, 7vw, 5rem);
   font-weight: 700;
   letter-spacing: -1px;
   position: relative;
   text-shadow: 0 0 12px var(--accent-glow);
+  margin-bottom: 16px;
 }
 
-/* FASTER, SUBTLER GLITCH */
+/* GLITCH */
 .hero h1::before,
 .hero h1::after {
   content: attr(data-text);
@@ -115,7 +199,7 @@ body {
 }
 
 .hero h1::after {
-  color: #d95040; /* warm red offset */
+  color: #d95040;
   clip-path: polygon(0 0, 100% 0, 100% 22%, 0 22%, 0 25%, 100% 25%, 100% 52%, 0 52%, 0 55%, 100% 55%, 100% 82%, 0 82%, 0 85%, 100% 85%, 100% 100%, 0 100%);
   animation: glitch-fast 1.4s infinite alternate;
   opacity: 0.68;
@@ -130,24 +214,35 @@ body {
   100% { transform: translate(0, 0); }
 }
 
-/* SCROLL INDICATOR */
-.scroll-indicator {
-  position: absolute;
-  bottom: 40px;
+/* HERO DESCRIPTION */
+.hero-description {
+  max-width: 600px;
+  font-size: 1.1rem;
+  opacity: 0.85;
+  margin: 12px 0 32px;
+  line-height: 1.6;
+}
+
+/* HERO CTA (View Services + Arrow) */
+.hero-cta {
+  color: var(--accent);
+  text-decoration: none;
+  font-size: 1.2rem;
+  font-weight: 600;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  transition: opacity 0.3s;
+}
+
+.hero-cta:hover {
+  opacity: 0.9;
+}
+
+.arrow-icon {
+  font-size: 1.4rem;
   animation: pulse 2s infinite;
-}
-
-.arrow {
-  width: 20px;
-  height: 20px;
-  border-right: 2px solid var(--accent);
-  border-bottom: 2px solid var(--accent);
-  transform: rotate(45deg);
-}
-
-@keyframes pulse {
-  0%, 100% { opacity: 0.4; }
-  50% { opacity: 1; }
 }
 
 /* === DIVIDER — WIDER === */
@@ -155,39 +250,13 @@ body {
   height: 2px;
   background: linear-gradient(90deg, transparent, var(--accent), transparent);
   margin: 0 auto;
-  width: 90%; /* wider */
+  width: 90%;
   max-width: 1000px;
   position: relative;
   top: -2px;
 }
 
-/* MOBILE ADJUSTMENTS */
-@media (max-width: 768px) {
-  .nav-content {
-    padding: 12px 24px;
-    gap: 20px;
-    min-width: auto;
-    width: calc(100% - 40px);
-    max-width: 400px;
-  }
-  .logo { font-size: 1.2rem; }
-  .nav-links { gap: 18px; }
-  .nav-links a { font-size: 0.95rem; }
-}
-
-/* === HERO — COMPACTED === */
-.hero {
-  height: 45vh; /* ← Key change: not 100vh */
-  min-height: 320px; /* ensures readability on small screens */
-  background: 
-    linear-gradient(rgba(12, 12, 15, 0.8), rgba(12, 12, 15, 0.9)),
-    url('https://placehold.co/1920x1080/0a0a0d/222228?text=CAR+GARAGE') center/cover no-repeat;
-  justify-content: flex-end; /* pushes text down slightly */
-  padding-bottom: 60px;
-}
-
-/* Remove old .dual-services rules — replace entirely */
-
+/* === DUAL SERVICES === */
 .dual-services {
   padding: 80px 40px;
   position: relative;
@@ -201,13 +270,13 @@ body {
   align-items: center;
   justify-content: center;
   gap: 0;
-  height: 520px; /* fixed height for alignment */
+  height: 360px; /* ← 300px image + padding = ~360px */
 }
 
-/* TEXT PANELS — OUTER EDGES */
+/* TEXT PANELS */
 .service-text {
-  width: 280px;
-  padding: 30px;
+  width: 260px;
+  padding: 28px;
   background: rgba(15, 15, 20, 0.75);
   backdrop-filter: blur(6px);
   border: 1px solid rgba(204, 0, 51, 0.2);
@@ -216,19 +285,19 @@ body {
 }
 
 .service-text--left {
-  margin-right: auto; /* pushes to far left */
+  margin-right: auto;
   text-align: right;
 }
 
 .service-text--right {
-  margin-left: auto; /* pushes to far right */
+  margin-left: auto;
   text-align: left;
 }
 
 .service-text h2 {
-  font-size: 2.4rem;
+  font-size: 2.2rem;
   font-weight: 700;
-  margin-bottom: 16px;
+  margin-bottom: 14px;
   color: var(--accent);
   text-shadow: 0 0 8px var(--accent-glow);
 }
@@ -240,24 +309,24 @@ body {
   opacity: 0.92;
 }
 
-/* IMAGES — CENTERED, SMALLER */
+/* IMAGES — 300px TALL */
 .service-image {
-  width: 500px;
-  height: 600px;
+  width: 420px;
+  height: 300px; /* ← KEY CHANGE */
   background-size: cover;
   background-position: center;
-  border-radius: 8px;
   box-shadow: 0 12px 30px rgba(0, 0, 0, 0.6);
   z-index: 2;
   position: relative;
+  border-radius: 0; /* sharp edges if desired */
 }
 
 .service-image--left {
-  margin-right: -40px; /* slight overlap toward center */
+  margin-right: -30px;
 }
 
 .service-image--right {
-  margin-left: -40px; /* slight overlap toward center */
+  margin-left: -30px;
 }
 
 /* SLASH DIVIDER — FULL HEIGHT */
@@ -270,7 +339,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 6rem;
+  font-size: 5.5rem;
   font-weight: 700;
   color: var(--accent);
   opacity: 0.75;
@@ -280,7 +349,7 @@ body {
   line-height: 1;
 }
 
-/* MOBILE — STACK */
+/* MOBILE */
 @media (max-width: 1100px) {
   .service-group {
     flex-direction: column;
@@ -292,7 +361,7 @@ body {
   .service-image {
     margin: 0 !important;
     width: 100%;
-    max-width: 500px;
+    max-width: 420px;
     text-align: center;
   }
 
@@ -302,7 +371,7 @@ body {
   }
 
   .service-image {
-    height: 400px;
+    height: 280px;
   }
 
   .divider-slash {
@@ -311,7 +380,34 @@ body {
     left: 0;
     transform: none;
     height: auto;
-    font-size: 3.2rem;
+    font-size: 3rem;
     margin: 10px 0;
+  }
+}
+
+@media (max-width: 768px) {
+  .logo-fixed {
+    top: 16px;
+    left: 16px;
+    font-size: 1.2rem;
+  }
+
+  .navbar {
+    width: calc(100% - 40px);
+    max-width: none;
+    padding: 0 5px;
+  }
+
+  .nav-content {
+    padding: 12px 20px;
+    gap: 20px;
+  }
+
+  .nav-links {
+    gap: 20px;
+  }
+
+  .nav-links a {
+    font-size: 1rem;
   }
 }
