@@ -1,7 +1,7 @@
-// VOID GARAGE — Cyber Core JS
-console.log("Void Garage: Precision loaded.");
+// VOID GARAGE — Cinematic Core
+console.log("Void Garage: Precision loaded. Cinematic animations active.");
 
-// Navbar shrink on scroll
+// === NAVBAR SHRINK ON SCROLL ===
 let lastScroll = 0;
 const navbar = document.querySelector('.navbar');
 
@@ -13,22 +13,20 @@ window.addEventListener('scroll', () => {
   }
 
   if (currentScroll > lastScroll && currentScroll > 80) {
-    // Scrolling down → shrink
     document.body.classList.add('scrolled');
   } else if (currentScroll < lastScroll && currentScroll < 80) {
-    // Scrolling up → expand
     document.body.classList.remove('scrolled');
   }
   lastScroll = currentScroll;
 });
 
-// Smooth scroll for anchor links
+// === SMOOTH ANCHOR SCROLLING ===
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
   anchor.addEventListener('click', function(e) {
     e.preventDefault();
     const target = document.querySelector(this.getAttribute('href'));
     if (target) {
-      const offsetTop = target.offsetTop - 80; // account for navbar height
+      const offsetTop = target.offsetTop - 80; // compensates for fixed navbar
       window.scrollTo({
         top: offsetTop,
         behavior: 'smooth'
@@ -37,7 +35,7 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
   });
 });
 
-// Dropdown toggle for mobile/touch
+// === DROPDOWN TOGGLE (MOBILE + DESKTOP) ===
 const dropdown = document.querySelector('.nav-dropdown');
 const toggle = document.querySelector('.dropdown-toggle');
 
@@ -47,10 +45,37 @@ if (toggle) {
     dropdown.classList.toggle('active');
   });
 
-  // Close dropdown on outside click
   document.addEventListener('click', (e) => {
     if (!dropdown.contains(e.target)) {
       dropdown.classList.remove('active');
     }
   });
 }
+
+// === SCROLL-TRIGGERED ANIMATIONS (IMAGES + SLASH) ===
+document.addEventListener('DOMContentLoaded', () => {
+  // Observer for cinematic fade+slide
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        // Animate service images
+        if (entry.target.classList.contains('service-image')) {
+          entry.target.classList.add('animate');
+        }
+        // Animate slash divider once (when first image appears)
+        const slash = document.querySelector('.divider-slash');
+        if (slash && !slash.classList.contains('animate')) {
+          slash.classList.add('animate');
+        }
+      }
+    });
+  }, {
+    threshold: 0.1,
+    rootMargin: "0px 0px -50px 0px" // trigger slightly before fully in view
+  });
+
+  // Observe both images
+  document.querySelectorAll('.service-image').forEach(img => {
+    observer.observe(img);
+  });
+});
