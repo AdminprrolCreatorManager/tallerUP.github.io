@@ -79,13 +79,23 @@ document.addEventListener('DOMContentLoaded', () => {
   const carousel = document.querySelector('.testimonials-carousel');
   if (!carousel) return;
 
-  const totalItems = 3;
+  const totalItems = 4; // 4 items for seamless loop
   let currentIndex = 0;
 
   // Auto-rotate every 5 seconds
   setInterval(() => {
-    currentIndex = (currentIndex + 1) % totalItems;
-    // Move carousel to next item (33.33% per item)
-    carousel.style.transform = `translateX(-${currentIndex * 33.33}%)`;
+    currentIndex++;
+    if (currentIndex >= totalItems) {
+      // Jump back to start without animation for seamless loop
+      carousel.style.transition = 'none';
+      carousel.style.transform = 'translateX(0)';
+      setTimeout(() => {
+        carousel.style.transition = 'transform 0.6s cubic-bezier(0.22, 1, 0.36, 1)';
+        currentIndex = 1;
+        carousel.style.transform = `translateX(-25%)`;
+      }, 20);
+    } else {
+      carousel.style.transform = `translateX(-${currentIndex * 25}%)`;
+    }
   }, 5000);
 });
