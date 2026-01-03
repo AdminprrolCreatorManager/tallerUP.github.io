@@ -291,7 +291,7 @@ body.scrolled .navbar {
 
 /* === SERVICES GRID === */
 .services-section {
-  padding: 70px 40px;
+  padding: 70px 40px 20px; /* ← CHANGED: Added 20px bottom padding */
   text-align: center;
 }
 
