@@ -175,139 +175,143 @@ body {
   .nav-links a { font-size: 0.95rem; }
 }
 
-/* === DUAL SERVICES SECTION === */
+/* === HERO — COMPACTED === */
+.hero {
+  height: 45vh; /* ← Key change: not 100vh */
+  min-height: 320px; /* ensures readability on small screens */
+  background: 
+    linear-gradient(rgba(12, 12, 15, 0.8), rgba(12, 12, 15, 0.9)),
+    url('https://placehold.co/1920x1080/0a0a0d/222228?text=CAR+GARAGE') center/cover no-repeat;
+  justify-content: flex-end; /* pushes text down slightly */
+  padding-bottom: 60px;
+}
+
+/* Remove old .dual-services rules — replace entirely */
+
 .dual-services {
+  padding: 80px 40px;
   position: relative;
+}
+
+.service-group {
+  position: relative;
+  max-width: 1400px;
+  margin: 0 auto;
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 0;
-  height: 80vh;
-  padding: 0 40px;
-  overflow: hidden;
+  height: 520px; /* fixed height for alignment */
 }
 
-.service {
-  position: relative;
-  width: calc(50% - 40px);
-  height: 90%;
-  display: flex;
-  opacity: 0;
-  transform: translateX(0);
-  transition: opacity 0.8s ease, transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
-}
-
-.service--left {
-  justify-content: flex-end;
-  transform: translateX(-80px);
-}
-
-.service--right {
-  justify-content: flex-start;
-  transform: translateX(80px);
-}
-
-/* Trigger animation on scroll (via JS) */
-.service.animate {
-  opacity: 1;
-  transform: translateX(0);
-}
-
-.service-content {
-  max-width: 380px;
-  padding: 40px;
+/* TEXT PANELS — OUTER EDGES */
+.service-text {
+  width: 280px;
+  padding: 30px;
   background: rgba(15, 15, 20, 0.75);
   backdrop-filter: blur(6px);
   border: 1px solid rgba(204, 0, 51, 0.2);
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
-  z-index: 2;
+  z-index: 4;
 }
 
-.service--right .service-content {
-  margin-left: auto;
+.service-text--left {
+  margin-right: auto; /* pushes to far left */
+  text-align: right;
 }
 
-.service h2 {
-  font-size: 2.8rem;
+.service-text--right {
+  margin-left: auto; /* pushes to far right */
+  text-align: left;
+}
+
+.service-text h2 {
+  font-size: 2.4rem;
   font-weight: 700;
-  margin-bottom: 18px;
+  margin-bottom: 16px;
   color: var(--accent);
   text-shadow: 0 0 8px var(--accent-glow);
 }
 
-.service p {
-  font-size: 1.05rem;
-  line-height: 1.6;
+.service-text p {
+  font-size: 1rem;
+  line-height: 1.7;
   color: var(--text);
-  opacity: 0.9;
+  opacity: 0.92;
 }
 
+/* IMAGES — CENTERED, SMALLER */
 .service-image {
-  position: absolute;
-  top: 0;
-  width: 100%;
-  height: 100%;
+  width: 500px;
+  height: 600px;
   background-size: cover;
   background-position: center;
-  z-index: 1;
   border-radius: 8px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.6);
+  z-index: 2;
+  position: relative;
 }
 
-/* SLASH DIVIDER */
+.service-image--left {
+  margin-right: -40px; /* slight overlap toward center */
+}
+
+.service-image--right {
+  margin-left: -40px; /* slight overlap toward center */
+}
+
+/* SLASH DIVIDER — FULL HEIGHT */
 .divider-slash {
   position: absolute;
-  top: 50%;
+  top: 0;
   left: 50%;
-  transform: translate(-50%, -50%) rotate(12deg);
-  font-size: 4.5rem;
+  transform: translateX(-50%);
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 6rem;
   font-weight: 700;
   color: var(--accent);
-  opacity: 0.8;
-  text-shadow: 0 0 12px var(--accent-glow);
+  opacity: 0.75;
+  text-shadow: 0 0 14px var(--accent-glow);
   z-index: 3;
   pointer-events: none;
+  line-height: 1;
 }
 
-/* MOBILE */
-@media (max-width: 992px) {
-  .dual-services {
+/* MOBILE — STACK */
+@media (max-width: 1100px) {
+  .service-group {
     flex-direction: column;
     height: auto;
-    padding: 60px 20px;
-    gap: 50px;
+    gap: 40px;
   }
 
-  .service {
-    width: 100%;
-    height: auto;
-    flex-direction: column;
-    opacity: 1;
-    transform: none !important;
-  }
-
-  .service--left, .service--right {
-    justify-content: center;
-    transform: none;
-  }
-
-  .service-content {
-    max-width: 100%;
+  .service-text,
+  .service-image {
     margin: 0 !important;
+    width: 100%;
+    max-width: 500px;
     text-align: center;
+  }
+
+  .service-text--left,
+  .service-text--right {
+    padding: 24px;
+  }
+
+  .service-image {
+    height: 400px;
   }
 
   .divider-slash {
     position: relative;
     top: 0;
     left: 0;
-    transform: rotate(0);
-    font-size: 2.8rem;
+    transform: none;
+    height: auto;
+    font-size: 3.2rem;
     margin: 10px 0;
-  }
-
-  .service-image {
-    height: 320px;
-    margin-bottom: 24px;
   }
 }
