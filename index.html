@@ -41,31 +41,36 @@
     <p class="hero-description">
       Precision craftsmanship for performance aesthetics and mechanical mastery.
     </p>
-    <a href="#services" class="hero-cta">
-      View Services
-      <span class="arrow-icon">↓</span>
-    </a>
+    <!-- Transparent "View Services" Button -->
+    <a href="#services" class="hero-cta-button">View Services</a>
+    <!-- Standalone Pulsing Arrow -->
+    <div class="hero-arrow-container">
+      <div class="hero-arrow"></div>
+    </div>
   </section>
 
   <!-- Divider -->
   <div class="hero-divider"></div>
 
   <!-- Dual Service Showcase -->
-  <section class="dual-services">
+  <section class="dual-services" id="services">
     <div class="service-group">
+      <!-- Slash Divider (will animate on scroll) -->
+      <div class="divider-slash">/</div>
+
       <!-- Left Text -->
       <div class="service-text service-text--left">
         <h2>FORM</h2>
         <p>Deep paint correction · Ceramic coating<br>Wheel refurbishment · Interior revival</p>
       </div>
 
-      <!-- Left Image -->
-      <div class="service-image service-image--left" 
+      <!-- Left Image (animated) -->
+      <div class="service-image service-image--left animated" 
            style="background-image: url('images/wheel.png');">
       </div>
 
-      <!-- Right Image -->
-      <div class="service-image service-image--right" 
+      <!-- Right Image (animated) -->
+      <div class="service-image service-image--right animated" 
            style="background-image: url('images/engine bay.png');">
       </div>
 
