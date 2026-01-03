@@ -26,7 +26,7 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     e.preventDefault();
     const target = document.querySelector(this.getAttribute('href'));
     if (target) {
-      const offsetTop = target.offsetTop - 80; // compensates for fixed navbar
+      const offsetTop = target.offsetTop - 80;
       window.scrollTo({
         top: offsetTop,
         behavior: 'smooth'
@@ -35,7 +35,7 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
   });
 });
 
-// === DROPDOWN TOGGLE (MOBILE + DESKTOP) ===
+// === DROPDOWN TOGGLE ===
 const dropdown = document.querySelector('.nav-dropdown');
 const toggle = document.querySelector('.dropdown-toggle');
 
@@ -52,30 +52,59 @@ if (toggle) {
   });
 }
 
-// === SCROLL-TRIGGERED ANIMATIONS (IMAGES + SLASH) ===
+// === SCROLL ANIMATIONS (DUAL SERVICES + SERVICES GRID) ===
 document.addEventListener('DOMContentLoaded', () => {
-  // Observer for cinematic fade+slide
+  // Observer for cinematic fade
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
-        // Animate service images
         if (entry.target.classList.contains('service-image')) {
           entry.target.classList.add('animate');
         }
-        // Animate slash divider once (when first image appears)
-        const slash = document.querySelector('.divider-slash');
-        if (slash && !slash.classList.contains('animate')) {
-          slash.classList.add('animate');
+        // Trigger services section animation
+        if (entry.target.classList.contains('services-section')) {
+          const items = entry.target.querySelectorAll('.services-column, .section-title');
+          items.forEach((item, i) => {
+            setTimeout(() => item.style.opacity = '1', i * 200);
+          });
         }
       }
     });
-  }, {
-    threshold: 0.1,
-    rootMargin: "0px 0px -50px 0px" // trigger slightly before fully in view
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.service-image').forEach(img => observer.observe(img));
+  document.querySelectorAll('.services-section').forEach(section => observer.observe(section));
+});
+
+// === TESTIMONIAL CAROUSEL ===
+document.addEventListener('DOMContentLoaded', () => {
+  const carousel = document.querySelector('.testimonials-carousel');
+  if (!carousel) return;
+
+  const items = carousel.querySelectorAll('.testimonial-item');
+  let currentIndex = 0;
+  const totalItems = 3; // Only 3 unique items
+
+  // Initialize
+  items.forEach((item, index) => {
+    item.style.transition = 'all 0.6s cubic-bezier(0.22, 1, 0.36, 1)';
+    if (index === 1) item.classList.add('center'); // Start with first real item centered
   });
 
-  // Observe both images
-  document.querySelectorAll('.service-image').forEach(img => {
-    observer.observe(img);
-  });
+  // Auto-rotate every 5 seconds
+  setInterval(() => {
+    // Remove center class from current
+    items[currentIndex % items.length]?.classList.remove('center');
+    
+    // Move to next
+    currentIndex++;
+    
+    // Add center to new current
+    const newCenterIndex = (currentIndex + 1) % items.length;
+    items[newCenterIndex]?.classList.add('center');
+    
+    // Shift carousel position for seamless loop
+    const offset = -newCenterIndex * 324; // 300px item + 24px margin
+    carousel.style.transform = `translateX(${offset}px)`;
+  }, 5000);
 });
