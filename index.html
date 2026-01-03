@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>VOID GARAGE</title>
+  
+  <!-- Rajdhani Font - Sleek & Tech -->
+  <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@600;700&display=swap" rel="stylesheet">
+  
+  <style>
+    /* === GLOBAL RESET + THEME === */
+    :root {
+      --bg: #0c0c0f;
+      --text: #e0e0ff;
+      --neon: #00f3ff;
+      --glow: 0 0 12px rgba(0, 243, 255, 0.7);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      font-family: 'Rajdhani', sans-serif;
+      overflow-x: hidden;
+      line-height: 1.4;
+    }
+
+    /* === HERO === */
+    .hero {
+      height: 100vh;
+      width: 100%;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      background: 
+        linear-gradient(rgba(12, 12, 15, 0.85), rgba(12, 12, 15, 0.95)),
+        url('https://placehold.co/1920x1080/0a0a0d/333344?text=HERO+BACKGROUND') 
+        center/cover no-repeat;
+      color: white;
+      padding: 0 20px;
+    }
+
+    .logo-placeholder {
+      position: absolute;
+      top: 30px;
+      left: 30px;
+      font-size: 1.4rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+    }
+
+    .hero h1 {
+      font-size: clamp(2.5rem, 8vw, 6rem);
+      font-weight: 700;
+      margin-bottom: 1.5rem;
+      letter-spacing: -0.5px;
+      text-shadow: var(--glow);
+      position: relative;
+    }
+
+    /* GLITCH EFFECT */
+    .hero h1::before,
+    .hero h1::after {
+      content: attr(data-text);
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+    }
+
+    .hero h1::before {
+      color: var(--neon);
+      clip-path: polygon(0 0, 100% 0, 100% 33%, 0 33%, 0 37%, 100% 37%, 100% 66%, 0 66%, 0 70%, 100% 70%, 100% 100%, 0 100%);
+      animation: glitch-anim 3s infinite alternate-reverse;
+      opacity: 0.8;
+    }
+
+    .hero h1::after {
+      color: #ff00c8;
+      clip-path: polygon(0 0, 100% 0, 100% 20%, 0 20%, 0 24%, 100% 24%, 100% 50%, 0 50%, 0 54%, 100% 54%, 100% 80%, 0 80%, 0 84%, 100% 84%, 100% 100%, 0 100%);
+      animation: glitch-anim 2.5s infinite alternate;
+      opacity: 0.6;
+    }
+
+    @keyframes glitch-anim {
+      0% { transform: translate(0); }
+      20% { transform: translate(-3px, 3px); }
+      40% { transform: translate(-3px, -3px); }
+      60% { transform: translate(3px, 3px); }
+      80% { transform: translate(3px, -3px); }
+      100% { transform: translate(0); }
+    }
+
+    .scroll-indicator {
+      position: absolute;
+      bottom: 30px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      opacity: 0.7;
+      animation: pulse 2s infinite;
+    }
+
+    .scroll-indicator span {
+      font-size: 0.85rem;
+      letter-spacing: 2px;
+    }
+
+    .scroll-indicator .arrow {
+      width: 24px;
+      height: 24px;
+      border-right: 2px solid var(--neon);
+      border-bottom: 2px solid var(--neon);
+      transform: rotate(45deg);
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 0.4; }
+      50% { opacity: 1; }
+    }
+
+    /* MOBILE TWEAK */
+    @media (max-width: 768px) {
+      .logo-placeholder {
+        top: 15px;
+        left: 15px;
+        font-size: 1.1rem;
+      }
+      .hero h1 {
+        font-size: clamp(2rem, 12vw, 4rem);
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <section class="hero">
+    <div class="logo-placeholder">LOGO</div>
+    <h1 data-text="PRECISION METAL">PRECISION METAL</h1>
+    <div class="scroll-indicator">
+      <div class="arrow"></div>
+      <span>SCROLL</span>
+    </div>
+  </section>
+
+  <!-- No JS yet — pure CSS hero -->
+</body>
+</html>
