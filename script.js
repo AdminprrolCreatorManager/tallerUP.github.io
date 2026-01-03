@@ -54,18 +54,16 @@ if (toggle) {
 
 // === SCROLL ANIMATIONS (DUAL SERVICES + SERVICES GRID) ===
 document.addEventListener('DOMContentLoaded', () => {
-  // Observer for cinematic fade
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
         if (entry.target.classList.contains('service-image')) {
           entry.target.classList.add('animate');
         }
-        // Trigger services section animation
         if (entry.target.classList.contains('services-section')) {
           const items = entry.target.querySelectorAll('.services-column, .section-title');
           items.forEach((item, i) => {
-            setTimeout(() => item.style.opacity = '1', i * 200);
+            item.style.opacity = '1';
           });
         }
       }
@@ -76,35 +74,18 @@ document.addEventListener('DOMContentLoaded', () => {
   document.querySelectorAll('.services-section').forEach(section => observer.observe(section));
 });
 
-// === TESTIMONIAL CAROUSEL ===
+// === FIXED TESTIMONIAL CAROUSEL ===
 document.addEventListener('DOMContentLoaded', () => {
   const carousel = document.querySelector('.testimonials-carousel');
   if (!carousel) return;
 
-  const items = carousel.querySelectorAll('.testimonial-item');
+  const totalItems = 3;
   let currentIndex = 0;
-  const totalItems = 3; // Only 3 unique items
-
-  // Initialize
-  items.forEach((item, index) => {
-    item.style.transition = 'all 0.6s cubic-bezier(0.22, 1, 0.36, 1)';
-    if (index === 1) item.classList.add('center'); // Start with first real item centered
-  });
 
   // Auto-rotate every 5 seconds
   setInterval(() => {
-    // Remove center class from current
-    items[currentIndex % items.length]?.classList.remove('center');
-    
-    // Move to next
-    currentIndex++;
-    
-    // Add center to new current
-    const newCenterIndex = (currentIndex + 1) % items.length;
-    items[newCenterIndex]?.classList.add('center');
-    
-    // Shift carousel position for seamless loop
-    const offset = -newCenterIndex * 324; // 300px item + 24px margin
-    carousel.style.transform = `translateX(${offset}px)`;
+    currentIndex = (currentIndex + 1) % totalItems;
+    // Move carousel to next item (33.33% per item)
+    carousel.style.transform = `translateX(-${currentIndex * 33.33}%)`;
   }, 5000);
 });
