@@ -211,14 +211,14 @@ body.scrolled .navbar {
   height: 360px;
 }
 
-/* === VERTICAL RED DIVIDER LINE === */
+/* === STATIC VERTICAL RED DIVIDER LINE === */
 .divider-slash {
   position: absolute;
-  top: 0;
+  top: 5%;
   left: 50%;
   transform: translateX(-50%);
   width: 2px;
-  height: 100%;
+  height: 90%; /* ← slightly smaller than image block */
   background: var(--accent);
   opacity: 0.8;
   z-index: 3;
@@ -226,15 +226,6 @@ body.scrolled .navbar {
   pointer-events: none;
 }
 
-.divider-slash.animate {
-  animation: reveal-slash 1.5s cubic-bezier(0.22, 1, 0.36, 1) forwards;
-}
-
-@keyframes reveal-slash {
-  0% { height: 0; opacity: 0; }
-  50% { height: 50%; opacity: 0.8; }
-  100% { height: 100%; opacity: 0.8; }
-}
 
 /* TEXT PANELS */
 .service-text {
