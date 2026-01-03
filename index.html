@@ -12,23 +12,26 @@
   <!-- Fixed Logo (Top-Left of Viewport) -->
   <div class="logo-fixed">VOID</div>
 
-  <!-- Compact Navbar (75% Width, Centered) -->
+  <!-- Compact Navbar (75% Width) -->
   <nav class="navbar">
     <div class="nav-content">
-      <!-- Dropdown Trigger (Left) -->
-      <div class="nav-dropdown">
-        <button class="dropdown-toggle" aria-label="Menu">↑</button>
-        <ul class="dropdown-menu">
-          <li><a href="#hours">Hours</a></li>
-          <li><a href="#location">Location</a></li>
-          <li><a href="#about">About</a></li>
-          <li><a href="#services">Services</a></li>
-        </ul>
+      <!-- LEFT: Dropdown + Logo -->
+      <div class="nav-left">
+        <div class="nav-dropdown">
+          <button class="dropdown-toggle" aria-label="Menu">↑</button>
+          <ul class="dropdown-menu">
+            <li><a href="#hours">Hours</a></li>
+            <li><a href="#location">Location</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#services-grid">Services</a></li>
+          </ul>
+        </div>
+        <div class="navbar-logo">VOID</div>
       </div>
 
-      <!-- Main Nav Links (Right) -->
+      <!-- RIGHT: Main Links -->
       <ul class="nav-links">
-        <li><a href="#services">Services</a></li>
+        <li><a href="#services-grid">Services</a></li>
         <li><a href="#showcase">Work</a></li>
         <li><a href="#contact">Visit</a></li>
       </ul>
@@ -41,46 +44,129 @@
     <p class="hero-description">
       Precision craftsmanship for performance aesthetics and mechanical mastery.
     </p>
-    <!-- Transparent "View Services" Button -->
-    <a href="#services" class="hero-cta-button">View Services</a>
-    <!-- Standalone Pulsing Arrow -->
+    <a href="#services-grid" class="hero-cta-button">View Services</a>
     <div class="hero-arrow-container">
       <div class="hero-arrow"></div>
     </div>
   </section>
 
-  <!-- Divider -->
+  <!-- Hero Divider -->
   <div class="hero-divider"></div>
 
   <!-- Dual Service Showcase -->
-  <section class="dual-services" id="services">
+  <section class="dual-services" id="showcase">
     <div class="service-group">
-      <!-- Slash Divider (will animate on scroll) -->
       <div class="divider-slash"></div>
-
-      <!-- Left Text -->
       <div class="service-text service-text--left">
         <h2>FORM</h2>
         <p>Deep paint correction · Ceramic coating<br>Wheel refurbishment · Interior revival</p>
       </div>
-
-      <!-- Left Image (animated) -->
-      <div class="service-image service-image--left animated" 
-           style="background-image: url('images/wheel.png');">
-      </div>
-
-      <!-- Right Image (animated) -->
-      <div class="service-image service-image--right animated" 
-           style="background-image: url('images/engine bay.png');">
-      </div>
-
-      <!-- Right Text -->
+      <div class="service-image service-image--left" style="background-image: url('images/wheel.png');"></div>
+      <div class="service-image service-image--right" style="background-image: url('images/engine bay.png');"></div>
       <div class="service-text service-text--right">
         <h2>FUNCTION</h2>
         <p>Engine bay dress-up · Performance upgrades<br>Brake overhauls · Exhaust tuning</p>
       </div>
     </div>
   </section>
+
+  <!-- Services Grid -->
+  <section class="services-section" id="services-grid">
+    <h2 class="section-title">SERVICES</h2>
+    
+    <div class="services-columns">
+      <div class="services-column">
+        <h3>AESTHETIC CRAFT</h3>
+        <ul class="services-list">
+          <li>• Paint Correction & Polishing</li>
+          <li>• Ceramic Coating</li>
+          <li>• Wheel Refinishing</li>
+          <li>• Interior Deep Cleaning</li>
+        </ul>
+      </div>
+      
+      <div class="services-column">
+        <h3>MECHANICAL MASTERY</h3>
+        <ul class="services-list">
+          <li>• High-Performance Brake Upgrades</li>
+          <li>• Exhaust System Installation</li>
+          <li>• Engine Bay Dress-Up</li>
+          <li>• Suspension & Alignment Tuning</li>
+        </ul>
+      </div>
+    </div>
+    
+    <div class="services-divider"></div>
+  </section>
+
+  <!-- Why Us + Testimonials -->
+  <section class="why-us" id="why-us">
+    <h2 class="section-title">WHY US</h2>
+    
+    <div class="why-us-content">
+      <div class="why-us-text">
+        <ul>
+          <li>✦ Precision craftsmanship with attention to mechanical detail</li>
+          <li>✦ Performance-focused solutions, not just cosmetic</li>
+          <li>✦ Transparent process — no hidden fees, no surprises</li>
+        </ul>
+      </div>
+      
+      <div class="testimonials-carousel">
+        <div class="testimonial-item">
+          <div class="stars">★★★★★</div>
+          <p>"Transformed my daily driver into a showpiece — and it still rips on track."</p>
+          <div class="author">— M. R., Madrid</div>
+        </div>
+        <div class="testimonial-item">
+          <div class="stars">★★★★★</div>
+          <p>"Brake upgrade + ceramic coating. Now it looks and stops like a supercar."</p>
+          <div class="author">— A. T., Barcelona</div>
+        </div>
+        <div class="testimonial-item">
+          <div class="stars">★★★★★</div>
+          <p>"Engine bay dress-up exceeded expectations. Clean, functional, aggressive."</p>
+          <div class="author">— L. K., Valencia</div>
+        </div>
+        <!-- Duplicate items for seamless loop -->
+        <div class="testimonial-item">
+          <div class="stars">★★★★★</div>
+          <p>"Transformed my daily driver into a showpiece — and it still rips on track."</p>
+          <div class="author">— M. R., Madrid</div>
+        </div>
+        <div class="testimonial-item">
+          <div class="stars">★★★★★</div>
+          <p>"Brake upgrade + ceramic coating. Now it looks and stops like a supercar."</p>
+          <div class="author">— A. T., Barcelona</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- About Section -->
+  <section class="about" id="about">
+    <h2 class="section-title">ABOUT</h2>
+    <p class="about-text">
+      Void Garage was born from a passion for performance and precision. 
+      We don't just clean cars — we refine machines, blending aesthetic excellence 
+      with mechanical integrity.
+    </p>
+    <div class="contact-info">
+      <p>📍 Madrid, Spain</p>
+      <p>📞 +34 XXX XXX XXX</p>
+      <p>✉️ hello@voidgarage.com</p>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="social-icons">
+      <a href="#" aria-label="Instagram"><span>IG</span></a>
+      <a href="#" aria-label="WhatsApp"><span>WA</span></a>
+      <a href="#" aria-label="Google Maps"><span>GM</span></a>
+    </div>
+    <p class="copyright">© 2026 VOID GARAGE. ALL RIGHTS RESERVED.</p>
+  </footer>
 
   <script src="script.js"></script>
 </body>
