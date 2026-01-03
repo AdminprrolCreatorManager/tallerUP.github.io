@@ -174,3 +174,140 @@ body {
   .nav-links { gap: 18px; }
   .nav-links a { font-size: 0.95rem; }
 }
+
+/* === DUAL SERVICES SECTION === */
+.dual-services {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+  height: 80vh;
+  padding: 0 40px;
+  overflow: hidden;
+}
+
+.service {
+  position: relative;
+  width: calc(50% - 40px);
+  height: 90%;
+  display: flex;
+  opacity: 0;
+  transform: translateX(0);
+  transition: opacity 0.8s ease, transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.service--left {
+  justify-content: flex-end;
+  transform: translateX(-80px);
+}
+
+.service--right {
+  justify-content: flex-start;
+  transform: translateX(80px);
+}
+
+/* Trigger animation on scroll (via JS) */
+.service.animate {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.service-content {
+  max-width: 380px;
+  padding: 40px;
+  background: rgba(15, 15, 20, 0.75);
+  backdrop-filter: blur(6px);
+  border: 1px solid rgba(204, 0, 51, 0.2);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+  z-index: 2;
+}
+
+.service--right .service-content {
+  margin-left: auto;
+}
+
+.service h2 {
+  font-size: 2.8rem;
+  font-weight: 700;
+  margin-bottom: 18px;
+  color: var(--accent);
+  text-shadow: 0 0 8px var(--accent-glow);
+}
+
+.service p {
+  font-size: 1.05rem;
+  line-height: 1.6;
+  color: var(--text);
+  opacity: 0.9;
+}
+
+.service-image {
+  position: absolute;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  z-index: 1;
+  border-radius: 8px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+}
+
+/* SLASH DIVIDER */
+.divider-slash {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(12deg);
+  font-size: 4.5rem;
+  font-weight: 700;
+  color: var(--accent);
+  opacity: 0.8;
+  text-shadow: 0 0 12px var(--accent-glow);
+  z-index: 3;
+  pointer-events: none;
+}
+
+/* MOBILE */
+@media (max-width: 992px) {
+  .dual-services {
+    flex-direction: column;
+    height: auto;
+    padding: 60px 20px;
+    gap: 50px;
+  }
+
+  .service {
+    width: 100%;
+    height: auto;
+    flex-direction: column;
+    opacity: 1;
+    transform: none !important;
+  }
+
+  .service--left, .service--right {
+    justify-content: center;
+    transform: none;
+  }
+
+  .service-content {
+    max-width: 100%;
+    margin: 0 !important;
+    text-align: center;
+  }
+
+  .divider-slash {
+    position: relative;
+    top: 0;
+    left: 0;
+    transform: rotate(0);
+    font-size: 2.8rem;
+    margin: 10px 0;
+  }
+
+  .service-image {
+    height: 320px;
+    margin-bottom: 24px;
+  }
+}
