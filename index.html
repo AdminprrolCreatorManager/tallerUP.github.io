@@ -9,10 +9,24 @@
 </head>
 <body>
 
-  <!-- Compact Navbar -->
+  <!-- Fixed Logo (Top-Left of Viewport) -->
+  <div class="logo-fixed">VOID</div>
+
+  <!-- Compact Navbar (75% Width, Centered) -->
   <nav class="navbar">
     <div class="nav-content">
-      <div class="logo">VOID</div>
+      <!-- Dropdown Trigger (Left) -->
+      <div class="nav-dropdown">
+        <button class="dropdown-toggle" aria-label="Menu">↑</button>
+        <ul class="dropdown-menu">
+          <li><a href="#hours">Hours</a></li>
+          <li><a href="#location">Location</a></li>
+          <li><a href="#about">About</a></li>
+          <li><a href="#services">Services</a></li>
+        </ul>
+      </div>
+
+      <!-- Main Nav Links (Right) -->
       <ul class="nav-links">
         <li><a href="#services">Services</a></li>
         <li><a href="#showcase">Work</a></li>
@@ -21,43 +35,47 @@
     </div>
   </nav>
 
-  <!-- Hero -->
+  <!-- Hero Section (45vh) -->
   <section class="hero">
     <h1 data-text="MACHINE REFINED">MACHINE REFINED</h1>
-    <div class="scroll-indicator">
-      <div class="arrow"></div>
-    </div>
+    <p class="hero-description">
+      Precision craftsmanship for performance aesthetics and mechanical mastery.
+    </p>
+    <a href="#services" class="hero-cta">
+      View Services
+      <span class="arrow-icon">↓</span>
+    </a>
   </section>
 
   <!-- Divider -->
   <div class="hero-divider"></div>
 
-  <!-- Dual Service Showcase (Refined) -->
-<section class="dual-services">
-  <div class="service-group">
-    <!-- Left Text -->
-    <div class="service-text service-text--left">
-      <h2>FORM</h2>
-      <p>Deep paint correction · Ceramic coating<br>Wheel refurbishment · Interior revival</p>
-    </div>
+  <!-- Dual Service Showcase -->
+  <section class="dual-services">
+    <div class="service-group">
+      <!-- Left Text -->
+      <div class="service-text service-text--left">
+        <h2>FORM</h2>
+        <p>Deep paint correction · Ceramic coating<br>Wheel refurbishment · Interior revival</p>
+      </div>
 
-    <!-- Left Image -->
-    <div class="service-image service-image--left" 
-         style="background-image: url('https://placehold.co/500x600/1a1a20/444455?text=AESTHETIC');">
-    </div>
+      <!-- Left Image -->
+      <div class="service-image service-image--left" 
+           style="background-image: url('images/wheel.png');">
+      </div>
 
-    <!-- Right Image -->
-    <div class="service-image service-image--right" 
-         style="background-image: url('https://placehold.co/500x600/1a1a20/553333?text=TECHNICAL');">
-    </div>
+      <!-- Right Image -->
+      <div class="service-image service-image--right" 
+           style="background-image: url('images/engine bay.png');">
+      </div>
 
-    <!-- Right Text -->
-    <div class="service-text service-text--right">
-      <h2>FUNCTION</h2>
-      <p>Engine bay dress-up · Performance upgrades<br>Brake overhauls · Exhaust tuning</p>
+      <!-- Right Text -->
+      <div class="service-text service-text--right">
+        <h2>FUNCTION</h2>
+        <p>Engine bay dress-up · Performance upgrades<br>Brake overhauls · Exhaust tuning</p>
+      </div>
     </div>
-  </div>
-</section>
+  </section>
 
   <script src="script.js"></script>
 </body>
