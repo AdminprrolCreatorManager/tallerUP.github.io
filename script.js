@@ -123,3 +123,19 @@ if (backToTopButton) {
     });
   });
 }
+
+// === SERVICES SECTION TOGGLE ===
+const servicesSection = document.querySelector('.services-section');
+const toggleButton = document.querySelector('.services-toggle-button');
+const verticalList = document.querySelector('.services-list-vertical');
+const gridColumns = document.querySelector('.services-columns');
+const imagesContainer = document.querySelector('.services-images');
+
+if (toggleButton && servicesSection) {
+  toggleButton.addEventListener('click', () => {
+    servicesSection.classList.toggle('toggled');
+    
+    // Optional: Scroll to top of section after toggle
+    servicesSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+}
