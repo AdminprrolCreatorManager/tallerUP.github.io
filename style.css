@@ -569,3 +569,11 @@ body.scrolled .navbar {
     font-size: 1rem;
   }
 }
+
+
+.parallax-section {
+  height: 500px;
+  background: url('images/parallax.png') center/cover no-repeat;
+  background-attachment: fixed; /* ← this creates parallax */
+  background-position: center;
+}
