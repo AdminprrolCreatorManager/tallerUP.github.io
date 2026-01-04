@@ -581,3 +581,46 @@ body.scrolled .navbar {
   background-attachment: fixed; /* ← this creates parallax */
   background-position: center;
 }
+
+
+/* === BACK TO TOP BUTTON === */
+#back-to-top {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  width: 48px;
+  height: 48px;
+  border: 1px solid var(--accent);
+  background: transparent;
+  color: var(--accent);
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 1.3rem;
+  font-weight: 700;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  opacity: 0;
+  visibility: hidden;
+  transform: scale(0.9);
+  transition: 
+    opacity 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+    background 0.3s ease;
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  z-index: 900;
+  box-shadow: none;
+}
+
+#back-to-top:hover {
+  background: rgba(204, 0, 51, 0.1);
+  box-shadow: 0 0 12px var(--accent-glow);
+}
+
+#back-to-top.show {
+  opacity: 1;
+  visibility: visible;
+  transform: scale(1);
+}
