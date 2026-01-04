@@ -273,8 +273,8 @@ body.scrolled .navbar {
   border-radius: 0;
   opacity: 0;
   transform: scale(0.9) translateY(20px);
-  transition: opacity 1.5s cubic-bezier(0.22, 1, 0.36, 1),
-              transform 1.5s cubic-bezier(0.22, 1, 0.36, 1);
+  transition: opacity 2.25s cubic-bezier(0.22, 1, 0.36, 1),
+              transform 2.25s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .service-image--left {
