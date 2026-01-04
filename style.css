@@ -310,9 +310,23 @@ body.scrolled .navbar {
 .services-columns {
   display: flex;
   justify-content: center;
-  gap: 60px;
-  max-width: 1000px;
+  gap: 40px; /* Reduced for 4 columns */
+  max-width: 1200px; /* Wider to fit 4 columns */
   margin: 0 auto;
+  flex-wrap: wrap; /* For mobile fallback */
+}
+
+@media (min-width: 768px) {
+  .services-columns {
+    flex-direction: row;
+  }
+}
+
+@media (max-width: 768px) {
+  .services-columns {
+    flex-direction: column;
+    gap: 30px;
+  }
 }
 
 .services-column h3 {
@@ -627,4 +641,24 @@ body.scrolled .navbar {
   opacity: 1;
   visibility: visible;
   transform: scale(1);
+}
+
+/* === SERVICE ICONS === */
+.service-icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.service-icon svg {
+  width: 32px;
+  height: 32px;
+  stroke: var(--accent);
+  fill: none;
+  transition: stroke 0.3s ease;
+}
+
+.services-column:hover .service-icon svg {
+  stroke: var(--accent-glow);
 }
