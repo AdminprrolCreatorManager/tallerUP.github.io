@@ -590,9 +590,9 @@ body.scrolled .navbar {
   right: 24px;
   width: 48px;
   height: 48px;
-  border: 1px solid var(--accent);
+  border: 1px solid white; /* ← CHANGED to WHITE */
   background: transparent;
-  color: var(--accent);
+  color: white; /* ← CHANGED to WHITE */
   font-family: 'Rajdhani', sans-serif;
   font-size: 1.3rem;
   font-weight: 700;
@@ -607,7 +607,9 @@ body.scrolled .navbar {
   transition: 
     opacity 0.4s cubic-bezier(0.22, 1, 0.36, 1),
     transform 0.4s cubic-bezier(0.22, 1, 0.36, 1),
-    background 0.3s ease;
+    background 0.3s ease,
+    border-color 0.3s ease,
+    color 0.3s ease;
   backdrop-filter: blur(4px);
   -webkit-backdrop-filter: blur(4px);
   z-index: 900;
@@ -615,7 +617,9 @@ body.scrolled .navbar {
 }
 
 #back-to-top:hover {
-  background: rgba(204, 0, 51, 0.1);
+  background: rgba(255, 255, 255, 0.1); /* subtle white bg */
+  border-color: var(--accent); /* red on hover */
+  color: var(--accent); /* red on hover */
   box-shadow: 0 0 12px var(--accent-glow);
 }
 
