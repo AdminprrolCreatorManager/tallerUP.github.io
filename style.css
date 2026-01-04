@@ -211,8 +211,12 @@ body.scrolled .navbar {
   position: relative;
 }
 
-.hero-divider, .services-divider {
+.hero-divider {
   top: -2px;
+}
+
+.services-divider {
+  margin-top: 40px;
 }
 
 /* === DUAL SERVICES === */
