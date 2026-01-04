@@ -99,3 +99,27 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }, 5000);
 });
+
+// === BACK TO TOP BUTTON ===
+const backToTopButton = document.getElementById('back-to-top');
+
+if (backToTopButton) {
+  // Calculate when to show: just below the hero section
+  const heroSection = document.querySelector('.hero');
+  const triggerOffset = heroSection ? heroSection.offsetHeight + heroSection.offsetTop : 600;
+
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > triggerOffset) {
+      backToTopButton.classList.add('show');
+    } else {
+      backToTopButton.classList.remove('show');
+    }
+  });
+
+  backToTopButton.addEventListener('click', () => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
+  });
+}
