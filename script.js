@@ -124,20 +124,41 @@ if (backToTopButton) {
   });
 }
 
-// === SERVICES SECTION TOGGLE — UPDATED ===
+// === SERVICES SECTION TOGGLE — CINEMATIC STAGGERED ANIMATION ===
 document.addEventListener('DOMContentLoaded', () => {
   const toggleButton = document.querySelector('.services-toggle-button');
   const servicesColumns = document.querySelector('.services-columns');
 
   if (toggleButton && servicesColumns) {
     toggleButton.addEventListener('click', () => {
-      servicesColumns.classList.toggle('show');
+      const isExpanded = servicesColumns.classList.contains('show');
       
-      // Toggle button text
-      if (servicesColumns.classList.contains('show')) {
-        toggleButton.textContent = 'HIDE SERVICES';
+      if (isExpanded) {
+        // Collapse: remove animation classes first, then hide
+        const columns = servicesColumns.querySelectorAll('.services-column');
+        columns.forEach(col => {
+          col.classList.remove('animate-0', 'animate-1', 'animate-2', 'animate-3');
+        });
+        
+        // Wait for transition to finish before removing 'show'
+        setTimeout(() => {
+          servicesColumns.classList.remove('show');
+          toggleButton.textContent = 'VIEW ALL SERVICES';
+        }, 300);
       } else {
-        toggleButton.textContent = 'VIEW ALL SERVICES';
+        // Expand: show container, then animate columns
+        servicesColumns.classList.add('show');
+        toggleButton.textContent = 'HIDE SERVICES';
+        
+        // Trigger staggered animation
+        setTimeout(() => {
+          const columns = servicesColumns.querySelectorAll('.services-column');
+          columns.forEach((col, index) => {
+            if (index < 4) {
+              col.classList.add(`animate-${index}`);
+            }
+          });
+        }, 50);
       }
     });
   }
