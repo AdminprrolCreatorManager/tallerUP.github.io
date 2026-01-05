@@ -299,7 +299,6 @@ body.scrolled .navbar {
   margin: 0 auto;
   padding: 70px 40px 20px;
   position: relative;
-  /* Removed display:flex from top level */
 }
 
 .services-title-centered {
@@ -309,7 +308,7 @@ body.scrolled .navbar {
 
 .services-button-container {
   text-align: center;
-  margin-bottom: 48px;
+  margin-bottom: 24px;
 }
 
 /* NEW: Main layout container below title/button */
@@ -317,7 +316,7 @@ body.scrolled .navbar {
   display: flex;
   gap: 60px;
   align-items: flex-start;
-  margin-bottom: 40px;
+  margin-bottom: 32px;
 }
 
 @media (max-width: 768px) {
@@ -427,9 +426,9 @@ body.scrolled .navbar {
   justify-content: center;
   gap: 40px;
   max-width: 1200px;
-  margin: 0 auto 40px;
+  margin: 0 auto;
   opacity: 0;
-  transform: translateY(20px);
+  transform: scale(0.95);
   transition: 
     opacity 0.6s cubic-bezier(0.22, 1, 0.36, 1),
     transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
@@ -438,7 +437,7 @@ body.scrolled .navbar {
 .services-columns.show {
   display: flex;
   opacity: 1;
-  transform: translateY(0);
+  transform: scale(1);
 }
 
 .services-column {
@@ -463,14 +462,13 @@ body.scrolled .navbar {
   opacity: 0.9;
 }
 
-/* === SERVICE IMAGES — RIGHT ALIGNED, SCALED, ZOOMED === */
+/* === SERVICE IMAGES — HORIZONTAL, SAME SIZE === */
 .services-images {
   display: flex;
-  flex-direction: column;
   gap: 20px;
   opacity: 1;
   transition: opacity 0.4s cubic-bezier(0.22, 1, 0.36, 1);
-  min-width: 200px;
+  min-width: fit-content;
 }
 
 .services-images .service-image-wrapper {
@@ -489,10 +487,10 @@ body.scrolled .navbar {
   display: block;
 }
 
-/* Zoom the 3rd image slightly */
+/* Removed zoom on 3rd image — all same size */
 .services-images .service-image-wrapper:nth-child(3) {
-  transform: scale(1.08);
-  z-index: 2; /* Ensure it overlaps neighbors */
+  /* No scale applied */
+  z-index: 1;
 }
 
 /* Hover effect */
@@ -500,18 +498,18 @@ body.scrolled .navbar {
   transform: scale(1.05);
 }
 
-/* Hide on toggle */
-.services-section.toggled .services-images,
+/* Hide on toggle — NOT NEEDED anymore */
+/* .services-section.toggled .services-images,
 .services-section.toggled .services-list-vertical {
   opacity: 0;
   pointer-events: none;
-}
+} */
 
 /* Reveal grid on toggle */
 .services-section.toggled .services-columns {
   display: flex;
   opacity: 1;
-  transform: translateY(0);
+  transform: scale(1);
 }
 
 /* === WHY US === */
