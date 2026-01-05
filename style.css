@@ -813,3 +813,18 @@ body.scrolled .navbar {
 .services-column:hover .service-icon svg {
   stroke: var(--accent-glow);
 }
+
+/* === GROUP LIST + IMAGES AS ONE FLEX ITEM === */
+.services-interactive {
+  display: flex;
+  gap: 60px;
+  align-items: flex-start;
+  width: 100%;
+}
+
+@media (max-width: 768px) {
+  .services-interactive {
+    flex-direction: column;
+    gap: 30px;
+  }
+}
