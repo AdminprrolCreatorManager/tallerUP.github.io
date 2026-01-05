@@ -124,18 +124,21 @@ if (backToTopButton) {
   });
 }
 
-// === SERVICES SECTION TOGGLE ===
-const servicesSection = document.querySelector('.services-section');
-const toggleButton = document.querySelector('.services-toggle-button');
-const verticalList = document.querySelector('.services-list-vertical');
-const gridColumns = document.querySelector('.services-columns');
-const imagesContainer = document.querySelector('.services-images');
+// === SERVICES SECTION TOGGLE — UPDATED ===
+document.addEventListener('DOMContentLoaded', () => {
+  const toggleButton = document.querySelector('.services-toggle-button');
+  const servicesColumns = document.querySelector('.services-columns');
 
-if (toggleButton && servicesSection) {
-  toggleButton.addEventListener('click', () => {
-    servicesSection.classList.toggle('toggled');
-    
-    // Optional: Scroll to top of section after toggle
-    servicesSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
-  });
-}
+  if (toggleButton && servicesColumns) {
+    toggleButton.addEventListener('click', () => {
+      servicesColumns.classList.toggle('show');
+      
+      // Toggle button text
+      if (servicesColumns.classList.contains('show')) {
+        toggleButton.textContent = 'HIDE SERVICES';
+      } else {
+        toggleButton.textContent = 'VIEW ALL SERVICES';
+      }
+    });
+  }
+});
