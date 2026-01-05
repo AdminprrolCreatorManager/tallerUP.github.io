@@ -1,24 +1,24 @@
-// VOID GARAGE — Cinematic Core
-console.log("Void Garage: Precision loaded. Cinematic animations active.");
+// VOID GARAGE — Mobile-First Core
+console.log("Void Garage: Mobile-first loaded. Responsive animations active.");
 
-// === NAVBAR SHRINK ON SCROLL ===
-let lastScroll = 0;
+// === NAVBAR SHRINK ON SCROLL (desktop only) ===
 const navbar = document.querySelector('.navbar');
-
-window.addEventListener('scroll', () => {
-  const currentScroll = window.pageYOffset;
-  if (currentScroll <= 0) {
-    document.body.classList.remove('scrolled');
-    return;
-  }
-
-  if (currentScroll > lastScroll && currentScroll > 80) {
-    document.body.classList.add('scrolled');
-  } else if (currentScroll < lastScroll && currentScroll < 80) {
-    document.body.classList.remove('scrolled');
-  }
-  lastScroll = currentScroll;
-});
+if (window.matchMedia('(min-width: 769px)').matches && navbar) {
+  let lastScroll = 0;
+  window.addEventListener('scroll', () => {
+    const currentScroll = window.pageYOffset;
+    if (currentScroll <= 0) {
+      document.body.classList.remove('scrolled');
+      return;
+    }
+    if (currentScroll > lastScroll && currentScroll > 80) {
+      document.body.classList.add('scrolled');
+    } else if (currentScroll < lastScroll && currentScroll < 80) {
+      document.body.classList.remove('scrolled');
+    }
+    lastScroll = currentScroll;
+  });
+}
 
 // === SMOOTH ANCHOR SCROLLING ===
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
@@ -26,9 +26,11 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     e.preventDefault();
     const target = document.querySelector(this.getAttribute('href'));
     if (target) {
-      const offsetTop = target.offsetTop - 80;
+      // Offset accounts for fixed navbar height
+      const offset = window.matchMedia('(min-width: 769px)').matches ? 80 : 60;
+      const targetTop = target.getBoundingClientRect().top + window.scrollY - offset;
       window.scrollTo({
-        top: offsetTop,
+        top: targetTop,
         behavior: 'smooth'
       });
     }
@@ -39,138 +41,102 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 const dropdown = document.querySelector('.nav-dropdown');
 const toggle = document.querySelector('.dropdown-toggle');
 
-if (toggle) {
+if (toggle && dropdown) {
   toggle.addEventListener('click', (e) => {
     e.stopPropagation();
-    dropdown.classList.toggle('active');
+    const isActive = dropdown.classList.toggle('active');
+    toggle.setAttribute('aria-expanded', isActive);
   });
 
   document.addEventListener('click', (e) => {
     if (!dropdown.contains(e.target)) {
       dropdown.classList.remove('active');
+      toggle.setAttribute(' aria-expanded', 'false');
     }
   });
 }
 
-// === SCROLL ANIMATIONS (DUAL SERVICES + SERVICES GRID) ===
-document.addEventListener('DOMContentLoaded', () => {
+// === SCROLL ANIMATIONS ===
+const animateOnScroll = () => {
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
         if (entry.target.classList.contains('service-image')) {
           entry.target.classList.add('animate');
         }
-        if (entry.target.classList.contains('services-section')) {
-          const items = entry.target.querySelectorAll('.services-column, .section-title');
-          items.forEach((item, i) => {
-            item.style.opacity = '1';
-          });
-        }
       }
     });
   }, { threshold: 0.1 });
 
   document.querySelectorAll('.service-image').forEach(img => observer.observe(img));
-  document.querySelectorAll('.services-section').forEach(section => observer.observe(section));
-});
+};
 
-// === FIXED TESTIMONIAL CAROUSEL ===
-document.addEventListener('DOMContentLoaded', () => {
+// Trigger after DOM and images are likely ready
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', animateOnScroll);
+} else {
+  animateOnScroll();
+}
+
+// === TESTIMONIAL CAROUSEL ===
+const initTestimonials = () => {
   const carousel = document.querySelector('.testimonials-carousel');
   if (!carousel) return;
 
-  const totalItems = 4; // 4 items for seamless loop
-  let currentIndex = 0;
+  const items = carousel.querySelectorAll('.testimonial-item');
+  const total = items.length;
+  if (total === 0) return;
 
-  // Auto-rotate every 5 seconds
-  setInterval(() => {
-    currentIndex++;
-    if (currentIndex >= totalItems) {
-      // Jump back to start without animation for seamless loop
-      carousel.style.transition = 'none';
-      carousel.style.transform = 'translateX(0)';
-      setTimeout(() => {
-        carousel.style.transition = 'transform 0.6s cubic-bezier(0.22, 1, 0.36, 1)';
-        currentIndex = 1;
-        carousel.style.transform = `translateX(-25%)`;
-      }, 20);
-    } else {
-      carousel.style.transform = `translateX(-${currentIndex * 25}%)`;
-    }
-  }, 5000);
-});
+  // Duplicate first item for seamless loop
+  const firstClone = items[0].cloneNode(true);
+  carousel.appendChild(firstClone);
+
+  let currentIndex = 0;
+  const updateCarousel = () => {
+    const percent = (currentIndex / (total + 1)) * 100;
+    carousel.style.transform = `translateX(-${percent}%)`;
+    currentIndex = (currentIndex + 1) % (total + 1);
+  };
+
+  // Auto-rotate
+  setInterval(updateCarousel, 5000);
+};
+
+document.addEventListener('DOMContentLoaded', initTestimonials);
 
 // === BACK TO TOP BUTTON ===
-const backToTopButton = document.getElementById('back-to-top');
-
-if (backToTopButton) {
-  // Calculate when to show: just below the hero section
-  const heroSection = document.querySelector('.hero');
-  const triggerOffset = heroSection ? heroSection.offsetHeight + heroSection.offsetTop : 600;
-
-  window.addEventListener('scroll', () => {
-    if (window.scrollY > triggerOffset) {
-      backToTopButton.classList.add('show');
+const backToTop = document.getElementById('back-to-top');
+if (backToTop) {
+  const updateBackToTop = () => {
+    // Show after 60vh
+    if (window.scrollY > window.innerHeight * 0.6) {
+      backToTop.classList.add('show');
     } else {
-      backToTopButton.classList.remove('show');
+      backToTop.classList.remove('show');
     }
-  });
-
-  backToTopButton.addEventListener('click', () => {
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth'
-    });
+  };
+  window.addEventListener('scroll', updateBackToTop);
+  backToTop.addEventListener('click', () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   });
 }
 
-// === SERVICES SECTION TOGGLE — CINEMATIC DROPDOWN + STAGGERED REVEAL ===
+// === SERVICES TOGGLE ===
 document.addEventListener('DOMContentLoaded', () => {
-  const toggleButton = document.querySelector('.services-toggle-button');
-  const servicesColumns = document.querySelector('.services-columns');
+  const toggleBtn = document.querySelector('.services-toggle-button');
+  const columns = document.querySelector('.services-columns');
 
-  if (toggleButton && servicesColumns) {
-    toggleButton.addEventListener('click', () => {
-      const isExpanded = servicesColumns.classList.contains('show');
-      
+  if (toggleBtn && columns) {
+    toggleBtn.addEventListener('click', () => {
+      const isExpanded = columns.classList.contains('show');
       if (isExpanded) {
-        // Collapse: animate height down, then reset classes
-        servicesColumns.style.height = servicesColumns.scrollHeight + 'px';
-        servicesColumns.offsetHeight; // Force reflow
-        servicesColumns.style.height = '0';
-        
-        // Remove animation classes
-        const columns = servicesColumns.querySelectorAll('.services-column');
-        columns.forEach(col => {
-          col.classList.remove('animate-0', 'animate-1', 'animate-2', 'animate-3');
-        });
-        
-        // Wait for animation to finish
-        setTimeout(() => {
-          servicesColumns.classList.remove('show');
-          toggleButton.textContent = 'VIEW ALL SERVICES';
-        }, 600);
+        columns.classList.remove('show');
+        toggleBtn.textContent = 'VIEW ALL SERVICES';
+        toggleBtn.setAttribute('aria-expanded', 'false');
       } else {
-        // Expand: set height to auto to get correct value, then animate to that height
-        servicesColumns.classList.add('show');
-        servicesColumns.style.height = 'auto';
-        const targetHeight = servicesColumns.scrollHeight;
-        servicesColumns.style.height = '0';
-        servicesColumns.offsetHeight; // Force reflow
-        
-        // Start animation
-        servicesColumns.style.height = targetHeight + 'px';
-        toggleButton.textContent = 'HIDE SERVICES';
-        
-        // Trigger staggered column reveal after 300ms
-        setTimeout(() => {
-          const columns = servicesColumns.querySelectorAll('.services-column');
-          columns.forEach((col, index) => {
-            if (index < 4) {
-              col.classList.add(`animate-${index}`);
-            }
-          });
-        }, 300);
+        columns.classList.add('show');
+        toggleBtn.textContent = 'HIDE SERVICES';
+        toggleBtn.setAttribute('aria-expanded', 'true');
       }
     });
   }
