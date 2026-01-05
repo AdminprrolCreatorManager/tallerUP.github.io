@@ -751,32 +751,39 @@ body.scrolled .navbar {
   transform: translateY(0);
 }
 
-/* === DIAGONAL IMAGES === */
+/* === RECTANGULAR SERVICE IMAGES (RIGHT-ANGLED) === */
 .services-images {
-  position: relative;
   display: flex;
   justify-content: flex-end;
-  gap: 20px;
-  margin-top: -60px; /* Overlap with content */
+  gap: 12px; /* Small gap between images */
+  margin-top: -40px; /* Slight overlap with list */
   opacity: 1;
-  transition: opacity 0.4s ease;
+  transition: opacity 0.4s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-.services-images img {
-  width: 200px;
-  height: auto;
-  object-fit: cover;
-  border-radius: 8px;
+.services-images .service-image-wrapper {
+  width: 160px;
+  height: 160px;
+  border: 2px solid var(--accent); /* Small red border */
+  overflow: hidden;
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.5);
-  transform: rotate(-10deg);
-  transition: transform 0.4s ease;
+  transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-.services-images img:first-child {
-  transform: rotate(10deg);
+.services-images .service-image-wrapper img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
 }
 
-.services-images.hide {
+/* Optional: subtle hover scale */
+.services-images .service-image-wrapper:hover {
+  transform: scale(1.03);
+}
+
+/* Hide on toggle */
+.services-section.toggled .services-images {
   opacity: 0;
   pointer-events: none;
 }
