@@ -124,7 +124,7 @@ if (backToTopButton) {
   });
 }
 
-// === SERVICES SECTION TOGGLE — CINEMATIC STAGGERED ANIMATION ===
+// === SERVICES SECTION TOGGLE — CINEMATIC DROPDOWN + STAGGERED REVEAL ===
 document.addEventListener('DOMContentLoaded', () => {
   const toggleButton = document.querySelector('.services-toggle-button');
   const servicesColumns = document.querySelector('.services-columns');
@@ -134,23 +134,35 @@ document.addEventListener('DOMContentLoaded', () => {
       const isExpanded = servicesColumns.classList.contains('show');
       
       if (isExpanded) {
-        // Collapse: remove animation classes first, then hide
+        // Collapse: animate height down, then reset classes
+        servicesColumns.style.height = servicesColumns.scrollHeight + 'px';
+        servicesColumns.offsetHeight; // Force reflow
+        servicesColumns.style.height = '0';
+        
+        // Remove animation classes
         const columns = servicesColumns.querySelectorAll('.services-column');
         columns.forEach(col => {
           col.classList.remove('animate-0', 'animate-1', 'animate-2', 'animate-3');
         });
         
-        // Wait for transition to finish before removing 'show'
+        // Wait for animation to finish
         setTimeout(() => {
           servicesColumns.classList.remove('show');
           toggleButton.textContent = 'VIEW ALL SERVICES';
-        }, 300);
+        }, 600);
       } else {
-        // Expand: show container, then animate columns
+        // Expand: set height to auto to get correct value, then animate to that height
         servicesColumns.classList.add('show');
+        servicesColumns.style.height = 'auto';
+        const targetHeight = servicesColumns.scrollHeight;
+        servicesColumns.style.height = '0';
+        servicesColumns.offsetHeight; // Force reflow
+        
+        // Start animation
+        servicesColumns.style.height = targetHeight + 'px';
         toggleButton.textContent = 'HIDE SERVICES';
         
-        // Trigger staggered animation
+        // Trigger staggered column reveal after 300ms
         setTimeout(() => {
           const columns = servicesColumns.querySelectorAll('.services-column');
           columns.forEach((col, index) => {
@@ -158,7 +170,7 @@ document.addEventListener('DOMContentLoaded', () => {
               col.classList.add(`animate-${index}`);
             }
           });
-        }, 50);
+        }, 300);
       }
     });
   }
