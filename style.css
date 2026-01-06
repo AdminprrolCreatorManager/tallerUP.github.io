@@ -399,6 +399,10 @@ body.scrolled .navbar {
   text-shadow: 0 0 6px var(--accent-glow);
   margin: 0;
   text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
 }
 
 .services-list-vertical .service-item::after {
@@ -737,7 +741,7 @@ body.scrolled .navbar {
 
 @media (max-width: 768px) {
   .logo-fixed {
-    top: 16px;
+    top: 80px; /* Move below navbar */
     left: 16px;
     font-size: 1.2rem;
   }
@@ -771,6 +775,13 @@ body.scrolled .navbar {
     width: 100%;
     max-width: 100%;
     justify-content: center;
+  }
+  
+  /* Fix service item text wrapping */
+  .services-list-vertical .service-item h3 {
+    font-size: 1rem;
+    white-space: normal;
+    text-overflow: clip;
   }
 }
 
