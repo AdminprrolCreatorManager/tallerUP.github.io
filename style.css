@@ -754,14 +754,12 @@ body.scrolled .navbar {
   }
 }
 
-
 .parallax-section {
   height: 300px;
   background: url('images/parallax.png') center/cover no-repeat;
   background-attachment: fixed; /* ← this creates parallax */
   background-position: center;
 }
-
 
 /* === BACK TO TOP BUTTON === */
 #back-to-top {
@@ -827,4 +825,77 @@ body.scrolled .navbar {
 
 .services-column:hover .service-icon svg {
   stroke: var(--accent-glow);
+}
+
+/* === SERVICES GRID FIXES === */
+.services-list-vertical {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 30px;
+  width: 100%;
+}
+
+.services-list-vertical .service-item {
+  flex: 1 1 calc(25% - 22px); /* 4 items per row with gap */
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 20px 10px;
+  min-width: 200px;
+}
+
+.services-list-vertical .service-icon {
+  margin-bottom: 12px;
+}
+
+.services-list-vertical .service-item h3 {
+  margin: 0;
+}
+
+.services-list-vertical .service-item::after {
+  display: none;
+}
+
+/* Responsive adjustments for services grid */
+@media (max-width: 1024px) {
+  .services-list-vertical .service-item {
+    flex: 1 1 calc(50% - 15px); /* 2 items per row */
+  }
+}
+
+@media (max-width: 768px) {
+  .services-list-vertical .service-item {
+    flex: 1 1 100%; /* 1 item per row */
+  }
+}
+
+/* Testimonials carousel mobile fix */
+.testimonials-container {
+  max-width: 100%;
+  padding: 0 20px;
+}
+
+.testimonials-carousel {
+  width: 100%;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+}
+
+.testimonial-item {
+  flex: 0 0 100%;
+  scroll-snap-align: start;
+  min-width: 100%;
+}
+
+@media (min-width: 769px) {
+  .testimonials-carousel {
+    width: 400%;
+  }
+  
+  .testimonial-item {
+    flex: 0 0 25%;
+    min-width: 25%;
+  }
 }
