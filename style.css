@@ -314,8 +314,8 @@ body.scrolled .navbar {
 /* NEW: Main layout container below title/button */
 .services-layout {
   display: flex;
-  gap: 60px;
-  align-items: center; /* ← VERTICALLY CENTER IMAGES & LIST */
+  gap: 40px;
+  align-items: center;
   margin-bottom: 32px;
   justify-content: center;
 }
@@ -324,7 +324,7 @@ body.scrolled .navbar {
   .services-layout {
     flex-direction: column;
     gap: 30px;
-    align-items: flex-start;
+    align-items: center;
   }
   .services-section {
     text-align: center;
@@ -341,36 +341,48 @@ body.scrolled .navbar {
 
 /* === VERTICAL LIST WITH SHORT LINES === */
 .services-list-vertical {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-  opacity: 1;
-  transition: opacity 0.4s cubic-bezier(0.22, 1, 0.36, 1);
-  flex: 0 0 auto;
-  min-width: 240px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  width: 100%;
+  max-width: 600px;
+  justify-content: center;
+}
+
+@media (max-width: 1024px) {
+  .services-list-vertical {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .services-list-vertical {
+    grid-template-columns: 1fr;
+  }
 }
 
 .services-list-vertical .service-item {
   display: flex;
+  flex-direction: column;
   align-items: center;
-  gap: 14px;
-  padding: 14px 0;
-  position: relative;
-  width: fit-content;
-  margin-right: auto; /* Align left */
+  text-align: center;
+  padding: 20px 10px;
+  gap: 12px;
+  min-width: 140px;
 }
 
 .services-list-vertical .service-icon {
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 24px;
-  height: 24px;
+  width: 32px;
+  height: 32px;
+  margin: 0 auto 8px;
 }
 
 .services-list-vertical .service-icon svg {
-  width: 24px;
-  height: 24px;
+  width: 32px;
+  height: 32px;
   stroke: var(--accent);
   fill: none;
   transition: stroke 0.3s ease;
@@ -381,26 +393,16 @@ body.scrolled .navbar {
 }
 
 .services-list-vertical .service-item h3 {
-  font-size: 1.2rem;
+  font-size: 1.1rem;
   font-weight: 700;
   color: var(--accent);
   text-shadow: 0 0 6px var(--accent-glow);
   margin: 0;
+  text-align: center;
 }
 
 .services-list-vertical .service-item::after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: calc(100% + 10px); /* Extend slightly beyond text */
-  height: 1px;
-  background: rgba(204, 0, 51, 0.25);
-  transition: width 0.3s ease;
-}
-
-.services-list-vertical .service-item:hover::after {
-  width: calc(100% + 20px);
+  display: none;
 }
 
 /* === SERVICES TOGGLE BUTTON === */
@@ -485,7 +487,7 @@ body.scrolled .navbar {
 /* === SERVICE IMAGES — CENTERED, LARGER, HORIZONTAL === */
 .services-images {
   display: flex;
-  gap: 24px;
+  gap: 20px;
   opacity: 1;
   transition: opacity 0.4s cubic-bezier(0.22, 1, 0.36, 1);
   justify-content: center;
@@ -494,12 +496,13 @@ body.scrolled .navbar {
 }
 
 .services-images .service-image-wrapper {
-  width: 220px;
-  height: 220px;
+  width: 180px;
+  height: 180px;
   border: 2px solid var(--accent);
   overflow: hidden;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6);
   transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+  border-radius: 0;
 }
 
 .services-images .service-image-wrapper img {
@@ -546,23 +549,26 @@ body.scrolled .navbar {
   margin: 40px auto 0;
   overflow: hidden;
   position: relative;
+  border-radius: 8px;
 }
 
 .testimonials-carousel {
   display: flex;
-  width: 400%;
+  width: 100%;
   transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+  scroll-snap-type: x mandatory;
 }
 
 .testimonial-item {
-  flex: 0 0 25%;
+  flex: 0 0 100%;
+  scroll-snap-align: start;
   padding: 24px;
   background: rgba(15, 15, 20, 0.7);
   backdrop-filter: blur(6px);
   border: 1px solid rgba(204, 0, 51, 0.2);
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
   text-align: center;
-  min-width: 200px;
+  min-width: 100%;
 }
 
 .stars {
@@ -717,9 +723,6 @@ body.scrolled .navbar {
   .testimonials-container {
     max-width: 320px;
   }
-  .testimonials-carousel {
-    width: 300%;
-  }
   .testimonial-item {
     padding: 20px;
   }
@@ -751,6 +754,23 @@ body.scrolled .navbar {
   }
   .nav-links a {
     font-size: 1rem;
+  }
+  
+  /* Services */
+  .services-layout {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .services-list-vertical {
+    width: 100%;
+    max-width: 100%;
+  }
+  
+  .services-images {
+    width: 100%;
+    max-width: 100%;
+    justify-content: center;
   }
 }
 
@@ -812,7 +832,7 @@ body.scrolled .navbar {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-bottom: 12px;
+  margin-bottom: 8px;
 }
 
 .service-icon svg {
@@ -825,77 +845,4 @@ body.scrolled .navbar {
 
 .services-column:hover .service-icon svg {
   stroke: var(--accent-glow);
-}
-
-/* === SERVICES GRID FIXES === */
-.services-list-vertical {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 30px;
-  width: 100%;
-}
-
-.services-list-vertical .service-item {
-  flex: 1 1 calc(25% - 22px); /* 4 items per row with gap */
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-  padding: 20px 10px;
-  min-width: 200px;
-}
-
-.services-list-vertical .service-icon {
-  margin-bottom: 12px;
-}
-
-.services-list-vertical .service-item h3 {
-  margin: 0;
-}
-
-.services-list-vertical .service-item::after {
-  display: none;
-}
-
-/* Responsive adjustments for services grid */
-@media (max-width: 1024px) {
-  .services-list-vertical .service-item {
-    flex: 1 1 calc(50% - 15px); /* 2 items per row */
-  }
-}
-
-@media (max-width: 768px) {
-  .services-list-vertical .service-item {
-    flex: 1 1 100%; /* 1 item per row */
-  }
-}
-
-/* Testimonials carousel mobile fix */
-.testimonials-container {
-  max-width: 100%;
-  padding: 0 20px;
-}
-
-.testimonials-carousel {
-  width: 100%;
-  overflow-x: auto;
-  scroll-snap-type: x mandatory;
-  -webkit-overflow-scrolling: touch;
-}
-
-.testimonial-item {
-  flex: 0 0 100%;
-  scroll-snap-align: start;
-  min-width: 100%;
-}
-
-@media (min-width: 769px) {
-  .testimonials-carousel {
-    width: 400%;
-  }
-  
-  .testimonial-item {
-    flex: 0 0 25%;
-    min-width: 25%;
-  }
 }
