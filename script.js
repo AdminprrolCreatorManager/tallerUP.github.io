@@ -83,39 +83,28 @@ document.addEventListener('DOMContentLoaded', () => {
   const totalItems = items.length;
   let currentIndex = 0;
   let isPaused = false;
-  
-  // Clone items to create seamless loop
-  items.forEach(item => {
-    const clone = item.cloneNode(true);
-    carousel.appendChild(clone);
-  });
+  let autoRotateInterval;
   
   // Function to move carousel
   function moveCarousel() {
     if (isPaused) return;
     
     currentIndex++;
-    
-    // Calculate new transform value
-    const translateX = -currentIndex * (100 / totalItems);
-    carousel.style.transform = `translateX(${translateX}%)`;
-    
-    // Reset to beginning when we reach the end
     if (currentIndex >= totalItems) {
-      setTimeout(() => {
-        carousel.style.transition = 'none';
-        currentIndex = 0;
-        const resetX = -currentIndex * (100 / totalItems);
-        carousel.style.transform = `translateX(${resetX}%)`;
-        setTimeout(() => {
-          carousel.style.transition = 'transform 0.6s cubic-bezier(0.22, 1, 0.36, 1)';
-        }, 20);
-      }, 600);
+      currentIndex = 0;
     }
+    
+    const translateX = -currentIndex * 100;
+    carousel.style.transform = `translateX(${translateX}%)`;
   }
   
   // Auto-rotate every 5 seconds
-  let autoRotate = setInterval(moveCarousel, 5000);
+  function startAutoRotate() {
+    clearInterval(autoRotateInterval);
+    autoRotateInterval = setInterval(moveCarousel, 5000);
+  }
+  
+  startAutoRotate();
   
   // Pause on hover
   const container = document.querySelector('.testimonials-container');
@@ -126,6 +115,7 @@ document.addEventListener('DOMContentLoaded', () => {
     
     container.addEventListener('mouseleave', () => {
       isPaused = false;
+      startAutoRotate();
     });
   }
 });
