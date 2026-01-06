@@ -79,25 +79,55 @@ document.addEventListener('DOMContentLoaded', () => {
   const carousel = document.querySelector('.testimonials-carousel');
   if (!carousel) return;
 
-  const totalItems = 4; // 4 items for seamless loop
+  const items = carousel.querySelectorAll('.testimonial-item');
+  const totalItems = items.length;
   let currentIndex = 0;
-
-  // Auto-rotate every 5 seconds
-  setInterval(() => {
+  let isPaused = false;
+  
+  // Clone items to create seamless loop
+  items.forEach(item => {
+    const clone = item.cloneNode(true);
+    carousel.appendChild(clone);
+  });
+  
+  // Function to move carousel
+  function moveCarousel() {
+    if (isPaused) return;
+    
     currentIndex++;
+    
+    // Calculate new transform value
+    const translateX = -currentIndex * (100 / totalItems);
+    carousel.style.transform = `translateX(${translateX}%)`;
+    
+    // Reset to beginning when we reach the end
     if (currentIndex >= totalItems) {
-      // Jump back to start without animation for seamless loop
-      carousel.style.transition = 'none';
-      carousel.style.transform = 'translateX(0)';
       setTimeout(() => {
-        carousel.style.transition = 'transform 0.6s cubic-bezier(0.22, 1, 0.36, 1)';
-        currentIndex = 1;
-        carousel.style.transform = `translateX(-25%)`;
-      }, 20);
-    } else {
-      carousel.style.transform = `translateX(-${currentIndex * 25}%)`;
+        carousel.style.transition = 'none';
+        currentIndex = 0;
+        const resetX = -currentIndex * (100 / totalItems);
+        carousel.style.transform = `translateX(${resetX}%)`;
+        setTimeout(() => {
+          carousel.style.transition = 'transform 0.6s cubic-bezier(0.22, 1, 0.36, 1)';
+        }, 20);
+      }, 600);
     }
-  }, 5000);
+  }
+  
+  // Auto-rotate every 5 seconds
+  let autoRotate = setInterval(moveCarousel, 5000);
+  
+  // Pause on hover
+  const container = document.querySelector('.testimonials-container');
+  if (container) {
+    container.addEventListener('mouseenter', () => {
+      isPaused = true;
+    });
+    
+    container.addEventListener('mouseleave', () => {
+      isPaused = false;
+    });
+  }
 });
 
 // === BACK TO TOP BUTTON ===
