@@ -144,53 +144,23 @@ if (backToTopButton) {
   });
 }
 
-// === SERVICES SECTION TOGGLE — CINEMATIC DROPDOWN + STAGGERED REVEAL ===
+// === SERVICES SECTION TOGGLE — UPDATED FOR NEW LAYOUT ===
 document.addEventListener('DOMContentLoaded', () => {
-  const toggleButton = document.querySelector('.services-toggle-button');
-  const servicesColumns = document.querySelector('.services-columns');
+  const toggleButton = document.getElementById('servicesToggleBtn');
+  const descriptionsRow = document.getElementById('servicesDescriptionsRow');
 
-  if (toggleButton && servicesColumns) {
+  if (toggleButton && descriptionsRow) {
     toggleButton.addEventListener('click', () => {
-      const isExpanded = servicesColumns.classList.contains('show');
+      const isExpanded = descriptionsRow.classList.contains('show');
       
       if (isExpanded) {
-        // Collapse: animate height down, then reset classes
-        servicesColumns.style.height = servicesColumns.scrollHeight + 'px';
-        servicesColumns.offsetHeight; // Force reflow
-        servicesColumns.style.height = '0';
-        
-        // Remove animation classes
-        const columns = servicesColumns.querySelectorAll('.services-column');
-        columns.forEach(col => {
-          col.classList.remove('animate-0', 'animate-1', 'animate-2', 'animate-3');
-        });
-        
-        // Wait for animation to finish
-        setTimeout(() => {
-          servicesColumns.classList.remove('show');
-          toggleButton.textContent = 'VIEW ALL SERVICES';
-        }, 600);
+        // Collapse
+        descriptionsRow.classList.remove('show');
+        toggleButton.textContent = 'VIEW ALL SERVICES';
       } else {
-        // Expand: set height to auto to get correct value, then animate to that height
-        servicesColumns.classList.add('show');
-        servicesColumns.style.height = 'auto';
-        const targetHeight = servicesColumns.scrollHeight;
-        servicesColumns.style.height = '0';
-        servicesColumns.offsetHeight; // Force reflow
-        
-        // Start animation
-        servicesColumns.style.height = targetHeight + 'px';
+        // Expand
+        descriptionsRow.classList.add('show');
         toggleButton.textContent = 'HIDE SERVICES';
-        
-        // Trigger staggered column reveal after 300ms
-        setTimeout(() => {
-          const columns = servicesColumns.querySelectorAll('.services-column');
-          columns.forEach((col, index) => {
-            if (index < 4) {
-              col.classList.add(`animate-${index}`);
-            }
-          });
-        }, 300);
       }
     });
   }
