@@ -132,6 +132,14 @@ body.scrolled .navbar {
   padding: 0 20px; position: relative; margin-top: 80px;
 }
 
+/* ✅ MOBILE FIX: Ensure full background image is visible on small screens */
+@media (max-width: 768px) {
+  .hero {
+    background: linear-gradient(rgba(12,12,15,0.8), rgba(12,12,15,0.9)), url('images/background hero.png') center/contain no-repeat;
+    background-position: center top;
+  }
+}
+
 .hero h1 {
   font-size: clamp(2.2rem, 7vw, 5rem); font-weight: 700; letter-spacing: -1px;
   position: relative; text-shadow: 0 0 12px var(--accent-glow); margin-bottom: 16px;
@@ -787,6 +795,3 @@ body.scrolled .navbar {
   fill: none;
   transition: stroke 0.3s ease;
 }
-
-/* Remove old hover that no longer applies */
-/* .services-column:hover .service-icon svg { stroke: var(--accent-glow); } */
