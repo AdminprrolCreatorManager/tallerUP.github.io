@@ -293,7 +293,7 @@ body.scrolled .navbar {
   transform: scale(1) translateY(0);
 }
 
-/* === SERVICES SECTION — UPDATED LAYOUT === */
+/* === SERVICES SECTION — FULLY REDONE FOR NEW LAYOUT === */
 .services-section {
   max-width: 1200px;
   margin: 0 auto;
@@ -311,76 +311,34 @@ body.scrolled .navbar {
   margin-bottom: 30px;
 }
 
-/* NEW: Main layout container below title/button */
-.services-layout {
+/* === SERVICE TITLES ROW (ALWAYS VISIBLE) === */
+.services-titles-row {
   display: flex;
-  gap: 40px;
-  align-items: center;
-  margin-bottom: 32px;
   justify-content: center;
+  gap: 30px;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
 }
 
-@media (max-width: 768px) {
-  .services-layout {
-    flex-direction: column;
-    gap: 30px;
-    align-items: center;
-  }
-  .services-section {
-    text-align: center;
-  }
-}
-
-.section-title {
-  font-size: 2.8rem;
-  font-weight: 700;
-  margin-bottom: 50px;
-  color: var(--accent);
-  text-shadow: 0 0 10px var(--accent-glow);
-}
-
-/* === VERTICAL LIST WITH SHORT LINES === */
-.services-list-vertical {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 20px;
-  width: 100%;
-  max-width: 600px;
-  justify-content: center;
-}
-
-@media (max-width: 1024px) {
-  .services-list-vertical {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-@media (max-width: 768px) {
-  .services-list-vertical {
-    grid-template-columns: 1fr;
-  }
-}
-
-.services-list-vertical .service-item {
+.service-title-item {
   display: flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
-  padding: 20px 10px;
-  gap: 12px;
   min-width: 140px;
+  padding: 16px;
+  gap: 10px;
 }
 
-.services-list-vertical .service-icon {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+.service-title-item .service-icon {
   width: 32px;
   height: 32px;
-  margin: 0 auto 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.services-list-vertical .service-icon svg {
+.service-title-item .service-icon svg {
   width: 32px;
   height: 32px;
   stroke: var(--accent);
@@ -388,25 +346,89 @@ body.scrolled .navbar {
   transition: stroke 0.3s ease;
 }
 
-.services-list-vertical .service-item:hover .service-icon svg {
+.service-title-item:hover .service-icon svg {
   stroke: var(--accent-glow);
 }
 
-.services-list-vertical .service-item h3 {
+.service-title-item h3 {
   font-size: 1.1rem;
   font-weight: 700;
   color: var(--accent);
   text-shadow: 0 0 6px var(--accent-glow);
   margin: 0;
-  text-align: center;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
   max-width: 100%;
 }
 
-.services-list-vertical .service-item::after {
-  display: none;
+/* === SERVICE DESCRIPTIONS ROW (TOGGLEABLE) === */
+.services-descriptions-row {
+  display: flex;
+  justify-content: center;
+  gap: 24px;
+  flex-wrap: wrap;
+  margin: 20px 0;
+  /* Start hidden */
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
+  transition: 
+    max-height 0.6s cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+    margin 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.services-descriptions-row.show {
+  max-height: 500px; /* adjust if content grows */
+  opacity: 1;
+  margin: 30px 0;
+}
+
+.service-desc-item {
+  min-width: 180px;
+  max-width: 220px;
+}
+
+.service-desc-item .services-list {
+  list-style: none;
+  font-size: 1.05rem;
+  line-height: 1.8;
+  color: var(--text);
+  opacity: 0.9;
+}
+
+.service-desc-item .services-list li {
+  margin-bottom: 8px;
+}
+
+/* === SERVICE IMAGES ROW (ALWAYS VISIBLE) === */
+.services-images-row {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-top: 10px;
+}
+
+.services-images-row .service-image-wrapper {
+  width: 180px;
+  height: 180px;
+  border: 2px solid var(--accent);
+  overflow: hidden;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6);
+  transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+  border-radius: 0;
+}
+
+.services-images-row .service-image-wrapper img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.services-images-row .service-image-wrapper:hover {
+  transform: scale(1.05);
 }
 
 /* === SERVICES TOGGLE BUTTON === */
@@ -429,96 +451,12 @@ body.scrolled .navbar {
   box-shadow: 0 0 12px var(--accent-glow);
 }
 
-/* === GRID COLUMNS — SMOOTH DROPDOWN + STAGGERED ANIMATION === */
+/* === REMOVE OLD SERVICE STYLES (NO LONGER USED) === */
+/* These were for the old layout — now obsolete */
+.services-layout,
+.services-list-vertical,
 .services-columns {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 40px;
-  max-width: 1200px;
-  margin: 0 auto;
-  opacity: 0;
-  height: 0;
-  overflow: hidden;
-  visibility: hidden;
-  pointer-events: none;
-  transition: 
-    height 0.6s cubic-bezier(0.22, 1, 0.36, 1),
-    opacity 0.6s cubic-bezier(0.22, 1, 0.36, 1);
-}
-
-.services-columns.show {
-  opacity: 1;
-  height: auto;
-  visibility: visible;
-  pointer-events: auto;
-}
-
-/* Individual column animation */
-.services-column {
-  text-align: left;
-  opacity: 0;
-  transform: scale(0.92);
-  transition: 
-    opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1),
-    transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
-}
-
-/* Stagger delays */
-.services-column.animate-0 { transition-delay: 0.1s; opacity: 1; transform: scale(1); }
-.services-column.animate-1 { transition-delay: 0.2s; opacity: 1; transform: scale(1); }
-.services-column.animate-2 { transition-delay: 0.3s; opacity: 1; transform: scale(1); }
-.services-column.animate-3 { transition-delay: 0.4s; opacity: 1; transform: scale(1); }
-
-.services-column h3 {
-  font-size: 1.8rem;
-  margin-bottom: 20px;
-  color: var(--accent);
-  text-shadow: 0 0 8px var(--accent-glow);
-}
-
-.services-list {
-  list-style: none;
-  font-size: 1.1rem;
-  line-height: 1.8;
-}
-
-.services-list li {
-  color: var(--text);
-  opacity: 0.9;
-}
-
-/* === SERVICE IMAGES — CENTERED, LARGER, HORIZONTAL === */
-.services-images {
-  display: flex;
-  gap: 20px;
-  opacity: 1;
-  transition: opacity 0.4s cubic-bezier(0.22, 1, 0.36, 1);
-  justify-content: center;
-  flex: 1;
-  max-width: 600px;
-}
-
-.services-images .service-image-wrapper {
-  width: 180px;
-  height: 180px;
-  border: 2px solid var(--accent);
-  overflow: hidden;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6);
-  transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
-  border-radius: 0;
-}
-
-.services-images .service-image-wrapper img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-}
-
-/* Hover effect */
-.services-images .service-image-wrapper:hover {
-  transform: scale(1.05);
+  display: none !important;
 }
 
 /* === WHY US === */
@@ -710,12 +648,6 @@ body.scrolled .navbar {
     box-shadow: none;
   }
 
-  /* Services */
-  .services-columns {
-    flex-direction: column;
-    gap: 30px;
-  }
-
   /* Why Us */
   .why-us-content {
     flex-direction: column;
@@ -760,28 +692,30 @@ body.scrolled .navbar {
     font-size: 1rem;
   }
   
-  /* Services */
-  .services-layout {
+  /* Services - Mobile Adjustments */
+  .services-titles-row,
+  .services-descriptions-row,
+  .services-images-row {
     flex-direction: column;
     align-items: center;
+    gap: 20px;
   }
   
-  .services-list-vertical {
+  .service-title-item,
+  .service-desc-item {
     width: 100%;
-    max-width: 100%;
+    max-width: 300px;
+    text-align: center;
   }
   
-  .services-images {
-    width: 100%;
-    max-width: 100%;
-    justify-content: center;
-  }
-  
-  /* Fix service item text wrapping */
-  .services-list-vertical .service-item h3 {
-    font-size: 1rem;
+  .service-title-item h3 {
+    font-size: 1.1rem;
     white-space: normal;
     text-overflow: clip;
+  }
+  
+  .services-descriptions-row.show {
+    max-height: 800px; /* accommodate taller mobile view */
   }
 }
 
@@ -854,6 +788,5 @@ body.scrolled .navbar {
   transition: stroke 0.3s ease;
 }
 
-.services-column:hover .service-icon svg {
-  stroke: var(--accent-glow);
-}
+/* Remove old hover that no longer applies */
+/* .services-column:hover .service-icon svg { stroke: var(--accent-glow); } */
